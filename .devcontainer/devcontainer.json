@@ -17,7 +17,8 @@
 			"extensions": [
 				"vscjava.vscode-spring-initializr",
 				"vscjava.vscode-spring-boot-dashboard",
-				"vmware.vscode-spring-boot"
+				"vmware.vscode-spring-boot",
+				"postman.postman-for-vscode"
 			]
 		}
 	}
