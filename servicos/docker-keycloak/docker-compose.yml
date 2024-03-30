@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  db:
+    container_name: db_keycloak_mysql
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_pwd
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=pa55word
+    ports:
+      - "43306:3306"
+    volumes:
+      - .docker/db/mysql:/var/lib/mysql
+
+    ##### CRIAR O DATABASE "keycloak" E RODAR:
+    # GRANT ALL ON *.* TO 'admin'@'%';
+    # GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%'  WITH GRANT OPTION;
+    # FLUSH PRIVILEGES;
+    # UPDATE mysql.user SET Super_Priv='Y' WHERE user='admin' AND host='%';
+    # commit;
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:19.0.1
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=mysql
+      - KC_DB_URL_HOST=db
+      - KC_DB_URL_PORT=3306
+      - KC_DB_SCHEMA=keycloak
+      - KC_DB_USERNAME=admin
+      - KC_DB_PASSWORD=pa55word
+    ports:
+      - 48080:8080
+    command: start-dev
+    depends_on:
+      - db
