@@ -37,3 +37,12 @@ services:
     command: start-dev
     depends_on:
       - db
+
+  flyway:
+    image: flyway/flyway
+    # [MYSQL] command: -url=jdbc:mysql://db -schemas=myschema -user=admin -password=pa55word -connectRetries=60 migrate
+    command: -url=jdbc:postgresql://192.168.1.7:5532/ -schemas=public -user=postgres -password=postgres -connectRetries=60 migrate
+    volumes:
+      - .:/flyway/sql
+    depends_on:
+      - db

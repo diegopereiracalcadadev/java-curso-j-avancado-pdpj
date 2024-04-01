@@ -33,3 +33,5 @@ build/
 .vscode/
 
 servicos/docker-keycloak/.docker
+
+servicos/projeto_flyway
